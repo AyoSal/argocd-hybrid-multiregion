@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cert-mgr-app
+  namespace: argocd
+  annotations:
+   notifications.argoproj.io/subscribe.on-deployed.slack: hybridupdates  #Slack Channel name  
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:AyoSal/argocd-hybrid.git
+    targetRevision: HEAD
+    path: cert-app
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: cert-manager
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+    - CreateNamespace=true
