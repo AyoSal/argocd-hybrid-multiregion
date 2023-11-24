@@ -11,7 +11,7 @@ metadata:
 spec:
   project: default
   source:
-    path: apps/apigee-charts/apigee-operator
+    path: apps2/apigee-charts/apigee-operator
     repoURL: 'git@github.com:AyoSal/argocd-hybrid-multiregion.git'
     targetRevision: HEAD
     helm:
