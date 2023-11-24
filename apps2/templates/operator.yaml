@@ -19,7 +19,7 @@ spec:
         - values-ops.yaml
   destination:
     namespace: apigee-system
-    server: https://34.27.240.10
+    server: https://kubernetes.default.svc
   syncPolicy:
     automated:
       selfHeal: true
