@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: 2apigeehybrid
+  name: apigeedc2
   namespace: argocd
   annotations:
    notifications.argoproj.io/subscribe.on-deployed.slack: hybridupdates  #Slack Channel name  
@@ -10,7 +10,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: git@github.com:AyoSal/argocd-hybrid.git
+    repoURL: git@github.com:AyoSal/argocd-hybrid-multiregion.git
     targetRevision: HEAD
     path: apps2
   destination:

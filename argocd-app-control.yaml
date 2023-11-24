@@ -1,0 +1,46 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: argocd-applicationset
+spec:
+  template:
+    serviceAccountName: argocd-applicationset-controller
+    replicas: 1
+    containers:
+    - name: main
+      image: argoproj/argocd-applicationset-controller:v0.4.0
+      command: ["argocd-applicationset-controller"]
+      ports:
+      - containerPort: 6150
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 200m
+        memory: 256Mi
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: argocd-applicationset-controller
+  namespace: argocd
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: argocd-applicationset-controller
+  namespace: argocd
+rules:
+- apiGroups: ["*"]
+  resources: ["*"]
+  verbs: ["get", "watch", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: argocd-applicationset-controller-rb
+  namespace: argocd
+roleRef:
+  kind:
+
