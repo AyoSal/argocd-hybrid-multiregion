@@ -17,7 +17,7 @@ spec:
       source:
         repoURL: git@github.com:AyoSal/argocd-hybrid-multiregion.git
         targetRevision: HEAD  
-        path: apps 
+        path: dc1-app 
       destination:
         server: '{{url}}'
         namespace: apigee
