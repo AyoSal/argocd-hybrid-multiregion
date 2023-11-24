@@ -5,8 +5,8 @@ gcp:
   projectID: ayos-os-test
 
 k8sCluster:
-  name: argocd-1103
-  region: us-east4 # Must be the closest Google Cloud region to your cluster.
+  name: argocd2-1103
+  region: us-central1 # Must be the closest Google Cloud region to your cluster.
 org: ayos-os-test
 orgscopedUDCA: true
 instanceID: "argocd-helm1102"
