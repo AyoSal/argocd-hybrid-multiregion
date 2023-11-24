@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: apigeehybrid-mregion
+  namespace: argocd  
+spec:
+  template:
+    metadata:
+      name: cert-mgr-app
+  generators:
+  - list: 
+      elements:
+      - cluster: argocd-1103
+        url: https://kubernetes.default.svc
+  template:
+    metadata:
+      name: cert-manager
+    spec:
+      project: default
+      source:  
+        repoURL: git@github.com:AyoSal/argocd-hybrid-multiregion.git
+        path: cert-app
+        targetRevision: HEAD  
+      destination:
+        server: https://kubernetes.default.svc
+        server: '{{url}}'
+        namespace: cert-manager
