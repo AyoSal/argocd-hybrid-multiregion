@@ -19,7 +19,7 @@ spec:
       - values-redis.yaml
   destination:
     namespace: apigee
-    server: https://kubernetes.default.svc
+    server: https://34.27.240.10
   syncPolicy:
     automated:
       selfHeal: true
