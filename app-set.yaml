@@ -2,27 +2,25 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: apigeehybrid-mregion
+  namespace: argocd  
 spec:
-  templates:
-    - name: cert-mgr-app
+  generators:
+  - list: 
+      elements:
+      - cluster: argocd-1103
+        url: https://kubernetes.default.svc
+  template:
+    metadata:
+      name: cert-manager
+    spec:
+      project: default
       source:
-        path: git@github.com:AyoSal/argocd-hybrid-multiregion.git
-        type: git
+        path: cert-app
+        targetRevision: HEAD  
+        repoURL: git@github.com:AyoSal/argocd-hybrid-multiregion.git  
       destination:
-        server: https://kubernetes.default.svc
+        server: '{{url}}'
         namespace: cert-manager
       syncPolicy:
         automated:
-          prune: true
-      selfHeal: true  
-    - name: apigeehybrid
-      source:
-        path: git@github.com:AyoSal/argocd-hybrid-multiregion.git
-        type: git
-      destination:
-        server: https://kubernetes.default.svc
-        namespace: apigee
-      syncPolicy:
-        automated:
-          prune: true
-      selfHeal: true
+          prune: true  

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: apigeehybrid
+  name: apigeedc1
   namespace: argocd
   annotations:
    notifications.argoproj.io/subscribe.on-deployed.slack: hybridupdates  #Slack Channel name  
