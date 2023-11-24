@@ -1,5 +1,5 @@
 apiVersion: v2
-name: apigeedc2
+name: cert-manager-dc2
 description: Applications
 
 #Umbrella chart for App of Apps
