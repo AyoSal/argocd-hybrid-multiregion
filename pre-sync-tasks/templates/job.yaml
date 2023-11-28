@@ -1,0 +1,45 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-example
+spec:
+  capacity:
+    storage: 100Mi
+  accessModes:
+  - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data"
+  persistentVolumeReclaimPolicy: Delete
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-example
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: pi
+spec:
+  template:
+    spec:
+      containers:
+      - name: ubuntu
+        image: ubuntu:latest
+        args: [ "/bin/sh", "-c", "echo Hello World > /tmp/volume/test.txt"]
+        volumeMounts:
+          - name: dc1-storage
+            mountPath: /tmp/volume
+      restartPolicy: Never
+      volumes:
+      - name: dc1-storage
+        persistentVolumeClaim:
+          claimName: pvc-example
+  backoffLimit: 2
+
