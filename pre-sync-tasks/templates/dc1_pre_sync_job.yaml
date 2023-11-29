@@ -1,14 +1,14 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: all-dc-pre-sync-script
+  name: dc1-pre-sync-script
 spec:
   template:
     spec:
       containers:
       - name: helm-kubectl
         image: ashwinknaik/apigee-ansible-accelrator:v1
-        args: [ "/bin/sh", "/tmp/scripts/dc2_pre_sync_script.sh"]
+        args: [ "/bin/sh", "/tmp/scripts/dc1_pre_sync_script.sh"]
         volumeMounts:
           - name: dc1-storage
             mountPath: /tmp/volume

@@ -20,7 +20,7 @@ spec:
       volumes:
       - name: dc1-storage
         persistentVolumeClaim:
-          claimName: pvc-example
+          claimName: multi-region-pvc
       - name: config-volume
         configMap:
           name:  apigee-hybrid-argo-hook-scripts
