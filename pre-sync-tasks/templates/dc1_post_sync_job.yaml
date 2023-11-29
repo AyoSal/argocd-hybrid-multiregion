@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: all-dc-pre-sync-script
+spec:
+  template:
+    spec:
+      containers:
+      - name: helm-kubectl
+        image: ashwinknaik/apigee-ansible-accelrator:v1
+        args: [ "/bin/sh", "/tmp/scripts/dc1_post_sync_script.sh"]
+        volumeMounts:
+          - name: dc1-storage
+            mountPath: /tmp/volume
+          - name: config-volume
+            mountPath: /tmp/scripts
+          - name: kube-config-volume
+            mountPath: /root/.kube
+      restartPolicy: Never
+      volumes:
+      - name: dc1-storage
+        persistentVolumeClaim:
+          claimName: pvc-example
+      - name: config-volume
+        configMap:
+          name:  apigee-hybrid-argo-hook-scripts
+      - name: kube-config-volume
+        configMap:
+          name:  apigee-hybrid-argo-hook-scripts-tmp
+  backoffLimit: 2
