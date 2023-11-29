@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: dapi-test-pod
+spec:
+    containers:
+    - name: helm-kubectl
+      image: ashwinknaik/apigee-ansible-accelrator:v1
+      args: [ "sleep", "600"]
+      volumeMounts:
+        - name: dc1-storage
+          mountPath: /tmp/volume
+        - name: config-volume
+          mountPath: /tmp/scripts
+        - name: kube-config-volume
+          mountPath: /root/.kube
+    restartPolicy: Never
+    volumes:
+    - name: dc1-storage
+      persistentVolumeClaim:
+        claimName: pvc-example
+    - name: config-volume
+      configMap:
+        name:  apigee-hybrid-argo-hook-scripts
+    - name: kube-config-volume
+      configMap:
+        name:  apigee-hybrid-argo-hook-scripts-tmp

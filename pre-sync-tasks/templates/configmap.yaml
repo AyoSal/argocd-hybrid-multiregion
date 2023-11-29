@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apigee-hybrid-argo-hook-scripts
+  namespace: default
+data:
+  all_dc_pre_sync_script.sh: |
+    #!/bin/bash
+    SETUP_DIR="/tmp/volume"
+    CHART_REPO=oci://us-docker.pkg.dev/apigee-release/apigee-hybrid-helm-charts
+    CHART_VERSION="1.10.3"
+    helm pull $CHART_REPO/apigee-operator --version $CHART_VERSION --untar --debug
+    kubectl apply -k  apigee-operator/etc/crds/default/ --server-side --force-conflicts --validate=false
+  dc1_pre_sync_script.sh: |
+    SETUP_DIR="/tmp/volume"
+    kubectl create ns apigee
+  dc1_post_sync_script.sh: |
+    #!/bin/bash
+    SETUP_DIR="/tmp/volume"
+    CASSANDRA_SEED=$(kubectl get apigeeds \
+        default -n apigee -o jsonpath='{.status.cassandraPodIps[0]}')
+    echo "$CASSANDRA_SEED"> "$SETUP_DIR/cassandra-seed.txt"
+    kubectl get namespace apigee -o yaml > "$SETUP_DIR/apigee-namespace.yaml"
+    kubectl get secret apigee-ca -n cert-manager -o yaml >  "$SETUP_DIR/apigee-ca.yaml"
+  dc2_pre_sync_script.sh: |
+    SETUP_DIR="/tmp/volume"
+    kubectl apply -f "$SETUP_DIR/apigee-namespace.yaml"
+    kubectl apply -f "$SETUP_DIR/apigee-ca.yaml"
