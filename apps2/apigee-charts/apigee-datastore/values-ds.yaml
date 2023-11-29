@@ -25,6 +25,10 @@ nodeSelector:
    value: "apigee-data"
 
 cassandra:
+  multiRegionSeedHost: 10.124.0.150
+  datacenter: argocd2-cluster
+  rack: ra-1
+  clusterName: apigee-mregion # must be the same for all regions     
   hostNetwork: false
   replicaCount: '3'
   resources:

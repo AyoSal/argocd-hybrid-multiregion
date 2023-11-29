@@ -14,7 +14,7 @@ spec:
     targetRevision: HEAD
     path: apps
   destination:
-    server: https://kubernetes.default.svc
+    server: https://34.86.7.24
     namespace: apigee
   syncPolicy:
     automated:

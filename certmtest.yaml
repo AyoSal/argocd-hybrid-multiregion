@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cert-manager
+  namespace: argocd  
+spec:
+  generators:
+  - list:
+      elements:
+      - cluster: argo2-cluster
+        url: https://34.27.240.10
+      - cluster: argo1-cluster
+        url: https://34.86.7.24
+  template:
+    metadata:
+      name: '{{cluster}}-certmanager'
+    spec:  
+      project: default
+      source:
+        repoURL: git@github.com:AyoSal/argocd-hybrid-multiregion.git
+        targetRevision: HEAD  
+        path: cert-app 
+      destination:
+        server: '{{url}}'
+        namespace: 'cert-manager'
+      syncPolicy:
+        automated:
+          selfHeal: true
+          prune: true
+        syncOptions:
+        - CreateNamespace=true  
