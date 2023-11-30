@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: pre-sync-jobs
+  namespace: argocd
+  annotations:
+   notifications.argoproj.io/subscribe.on-deployed.slack: hybridupdates  #Slack Channel name  
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: git@github.com:AyoSal/argocd-hybrid-multiregion.git
+    targetRevision: HEAD
+    path: pre-sync-tasks/templates/dc1-presync
+  destination:
+    server: https://34.86.7.24
+    namespace: apigee
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+    syncOptions:
+    - CreateNamespace=true
