@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: dc2-presync-jobs
+  namespace: argocd  
+spec:
+  generators:
+  - clusters:
+    selector:
+      matchLabels:
+        name: argo2-cluster
+  template:
+    metadata:
+      annotations:
+        argoproj.argoproj.io/sync-wave: "1"
+    spec:
+      project: default
+      source:
+        repoURL: git@github.com:AyoSal/argocd-hybrid-multiregion.git
+        targetRevision: HEAD
+        path: pre-sync-tasks/templates/dc2-sync
+      destination:
+        name: https://kubernetes.default.svc
+        namespace: argocd 

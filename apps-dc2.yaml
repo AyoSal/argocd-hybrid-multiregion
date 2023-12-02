@@ -14,7 +14,7 @@ spec:
     targetRevision: HEAD
     path: apps2
   destination:
-    server: https://34.27.240.10
+    server: https://34.171.204.225
     namespace: apigee
   syncPolicy:
     automated:
