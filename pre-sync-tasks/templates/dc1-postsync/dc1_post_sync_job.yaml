@@ -8,7 +8,7 @@ spec:
       containers:
       - name: helm-kubectl
         image: ashwinknaik/apigee-ansible-accelrator:v1
-        args: [ "/bin/sh", "/tmp/scripts/all_dc_pre_sync_script.sh"]
+        args: [ "/bin/sh", "/tmp/scripts/dc1_post_sync_script.sh"]
         volumeMounts:
           - name: dc1-storage
             mountPath: /tmp/volume

@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: apigee-hybrid-argo-hook-scripts
-  namespace: default
+  namespace: apigee
 data:
   all_dc_pre_sync_script.sh: |
     #!/bin/bash

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: apigeedc1
+  name: pre-sync-jobs
   namespace: argocd
   annotations:
    notifications.argoproj.io/subscribe.on-deployed.slack: hybridupdates  #Slack Channel name  
@@ -12,9 +12,9 @@ spec:
   source:
     repoURL: git@github.com:AyoSal/argocd-hybrid-multiregion.git
     targetRevision: HEAD
-    path: apps
+    path: pre-sync-tasks/templates/dc1-presync
   destination:
-    server: https://kubernetes.default.svc
+    server: https://34.86.7.24
     namespace: apigee
   syncPolicy:
     automated:
