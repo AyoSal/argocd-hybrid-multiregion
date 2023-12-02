@@ -14,7 +14,8 @@ spec:
     targetRevision: HEAD
     path: apps2
   destination:
-    server: https://34.171.204.225
+    server: https://kubernetes.default.svc
+    destserver: https://34.171.204.225
     namespace: apigee
   syncPolicy:
     automated:

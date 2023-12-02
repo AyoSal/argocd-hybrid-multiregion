@@ -1,4 +1,4 @@
-apiVersion: argoproj.io/v1alpha1
+apiVersion: argoproj.io/v1alpha2
 kind: Application
 metadata:
   name: cert-mgr-app-dc2
@@ -14,7 +14,8 @@ spec:
     targetRevision: HEAD
     path: cert-app2
   destination:
-    server: https://34.171.204.225
+    server: https://kubernetes.default.svc
+    destserver: https://34.171.204.225
     namespace: cert-manager
   syncPolicy:
     automated:
