@@ -20,5 +20,5 @@ spec:
         targetRevision: HEAD
         path: pre-sync-tasks/templates/dc1-presync
       destination:
-        name: "{{server}}"
-        namespace: default  
+        name: https://kubernetes.default.svc
+        namespace: argocd 

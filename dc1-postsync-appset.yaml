@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: presync-jobs-appset
+  name: dc1-postsync-job
   namespace: argocd  
 spec:
   generators:
@@ -18,7 +18,7 @@ spec:
       source:
         repoURL: git@github.com:AyoSal/argocd-hybrid-multiregion.git
         targetRevision: HEAD
-        path: pre-sync-tasks/templates/dc1-presync
+        path: pre-sync-tasks/templates/dc1-postsync
       destination:
-        name: "{{server}}"
-        namespace: default  
+        name: https://kubernetes.default.svc
+        namespace: argocd 
