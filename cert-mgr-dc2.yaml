@@ -14,8 +14,7 @@ spec:
     targetRevision: HEAD
     path: cert-app2
   destination:
-    #server: https://kubernetes.default.svc
-    destserver: https://34.171.204.225
+    server: https://34.171.204.225
     namespace: cert-manager
   syncPolicy:
     automated:
