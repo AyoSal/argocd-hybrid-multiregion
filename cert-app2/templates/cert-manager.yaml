@@ -21,7 +21,7 @@ spec:
           value: 'true'
   destination:
     namespace: cert-manager
-    server: https://34.27.240.10
+    server: https://34.171.204.225
   syncPolicy:
     automated:
       selfHeal: true
